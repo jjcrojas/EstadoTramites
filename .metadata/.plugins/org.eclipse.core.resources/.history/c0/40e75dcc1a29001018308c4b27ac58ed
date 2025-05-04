@@ -1,7 +1,0 @@
-spring.datasource.url=jdbc:oracle:thin:@//cl-exacssfcnp-scan:1521/dbsfcdes.superfinanciera.loc
-spring.datasource.username=RNVEIJCR
-spring.datasource.password=julpipe06
-spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
-
-app.excel-folder=${ONEDRIVE_PATH}Pensiones/Tramites
-server.port=8085
