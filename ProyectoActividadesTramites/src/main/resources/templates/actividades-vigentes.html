@@ -7,53 +7,75 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1em;
+            font-family: Arial, sans-serif;
         }
         th, td {
-            border: 1px solid #ddd;
+            border: 1px solid #999;
             padding: 8px;
-            font-size: 0.9em;
+            text-align: left;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #f3f3f3;
         }
-        body {
-            font-family: Arial, sans-serif;
-            margin: 2em;
+        .rango-dias.rojo {
+            background-color: #ffcccc;
+            font-weight: bold;
+        }
+        .rango-dias.amarillo {
+            background-color: #fff3cd;
+            font-weight: bold;
+        }
+        .rango-dias.verde {
+            background-color: #d4edda;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h2>Actividades Vigentes</h2>
+    <h1>Actividades Vigentes</h1>
     <table>
         <thead>
             <tr>
                 <th>Expediente</th>
+                <th>Dependencia</th>
+                <th>Fecha Radicado Cero</th>
                 <th>Código Trámite</th>
                 <th>Nombre Trámite</th>
-                <th>Fecha Radicado Cero</th>
+                <th>Último Derivado</th>
                 <th>Fecha Último Derivado</th>
                 <th>Descripción Último Derivado</th>
                 <th>Nombre Actividad</th>
                 <th>Fecha Creación Actividad</th>
                 <th>Responsable Actividad</th>
-                <th>Días desde Radicado</th>
+                <th>Nombre Tercero</th>
+                <th>Proceso</th>
+                <th>Días Creación Actividad</th>
+                <th>Rango Días</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="fila : ${actividades}">
-                <td th:text="${fila.expediente}">Exp</td>
-                <td th:text="${fila.codigo_tramite}">Cod</td>
-                <td th:text="${fila.nombre_tramite}">Trámite</td>
-                <td th:text="${fila.fecha_radicado_cero}">Fecha</td>
-                <td th:text="${fila.fecha_ultimo_derivado}">Fecha Derivado</td>
-                <td th:text="${fila.descripcion_ultimo_derivado}">Descripción</td>
-                <td th:text="${fila.nombre_actividad}">Actividad</td>
-                <td th:text="${fila.fecha_creacion_actividad}">Fecha Act.</td>
-                <td th:text="${fila.responsable_actividad}">Responsable</td>
-                <td th:text="${fila.dias_desde_radicado}">Días</td>
+                <td th:text="${fila['expediente']}"></td>
+                <td th:text="${fila['dependencia']}"></td>
+                <td th:text="${fila['fecha_radicado_cero']}"></td>
+                <td th:text="${fila['codigo_tramite']}"></td>
+                <td th:text="${fila['nombre_tramite']}"></td>
+                <td th:text="${fila['ultimo_derivado']}"></td>
+                <td th:text="${fila['fecha_ultimo_derivado']}"></td>
+                <td th:text="${fila['descripcion_ultimo_derivado']}"></td>
+                <td th:text="${fila['nombre_actividad']}"></td>
+                <td th:text="${fila['fecha_creacion_actividad']}"></td>
+                <td th:text="${fila['responsable_actividad']}"></td>
+                <td th:text="${fila['nombre_tercero']}"></td>
+                <td th:text="${fila['proceso']}"></td>
+                <td th:text="${fila['dias_creacion_actividad']}"></td>
+                <td th:text="${fila['rango_dias']}"
+                    th:class="'rango-dias ' + (${fila['rango_dias']} == 'Más de 60 días' ? 'rojo' : (${fila['rango_dias']} == 'Entre 30 y 60 días' ? 'amarillo' : 'verde'))">
+                </td>
             </tr>
         </tbody>
     </table>
 </body>
 </html>
+
+

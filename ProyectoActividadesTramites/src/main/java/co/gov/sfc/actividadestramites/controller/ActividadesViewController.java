@@ -17,11 +17,17 @@ public class ActividadesViewController {
 
     @GetMapping("/actividades")
     public String verActividadesWeb(Model model) {
-        String sql = "SELECT expediente, codigo_tramite, nombre_tramite, fecha_radicado_cero, " +
-                     "fecha_ultimo_derivado, descripcion_ultimo_derivado, nombre_actividad, " +
-                     "fecha_creacion_actividad, responsable_actividad, " +
-                     "TRUNC(SYSDATE - fecha_radicado_cero) AS dias_desde_radicado " +
-                     "FROM actividadesvigentes ORDER BY dias_desde_radicado DESC";
+        String sql = "SELECT expediente, dependencia, fecha_radicado_cero, codigo_tramite, nombre_tramite, " +
+                "ultimo_derivado, fecha_ultimo_derivado, descripcion_ultimo_derivado, nombre_actividad, " +
+                "fecha_creacion_actividad, responsable_actividad, nombre_tercero, proceso, " +
+                "TRUNC(SYSDATE - fecha_creacion_actividad) AS dias_creacion_actividad, " +
+                "CASE " +
+                "   WHEN (SYSDATE - fecha_creacion_actividad) < 30 THEN 'Menos de 30 días' " +
+                "   WHEN (SYSDATE - fecha_creacion_actividad) BETWEEN 30 AND 60 THEN 'Entre 30 y 60 días' " +
+                "   ELSE 'Más de 60 días' " +
+                "END AS rango_dias " +
+                "FROM actividadesvigentes " +
+                "ORDER BY dias_creacion_actividad DESC";
 
         List<Map<String, Object>> actividades = jdbcTemplate.queryForList(sql);
         model.addAttribute("actividades", actividades);
